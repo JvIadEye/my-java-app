@@ -1,3 +1,5 @@
+@Library('my_shared_library') _
+
 pipeline{
 
     agent any
@@ -13,10 +15,20 @@ pipeline{
 
     stages {
          
-        stage('Stage1: Git Checkout'){
-                    when { expression {  params.action == 'create' } }
-            steps{
-                 git branch: 'main', url: params.Java_URL
+      //   stage('Stage1: Git Checkout'){
+      //               when { expression {  params.action == 'create' } }
+      //       steps{
+      //            git branch: 'main', url: params.Java_URL
+      //       }
+      //   }
+
+        stage ('Stage1: Git Checkout') {
+            when { expression {  params.action == 'create' } }
+            steps {
+                gitCheckout (
+                  branch: 'main',
+                  repoUrl: params.Java_URL
+                )
             }
         }
         stage('Stage2: Maven Build : maven'){
