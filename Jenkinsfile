@@ -31,7 +31,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar http://34.123.193.20/:8082/artifactory/example-repo-local/'
+                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar http://34.123.193.20:8082/artifactory/example-repo-local/'
                }
             }
         }
