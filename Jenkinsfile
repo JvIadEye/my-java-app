@@ -44,17 +44,6 @@ pipeline{
                }
             }
 
-    }
-    post {
-        // Actions to be performed after the pipeline finishes
-        success {
-            echo 'Pipeline succeeded! Your Java application is built.'
-            // You can add further actions here, like notifications or deployments
         }
-        failure {
-            echo 'Pipeline failed! Please check the build logs for errors.'
-            // You can add further actions here, like notifications or rollback procedures
-        }
-    }
-    }
+   }
 }
