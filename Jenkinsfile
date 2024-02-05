@@ -11,7 +11,7 @@ pipeline{
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
     }
 
-    stages{
+    stages
          
         stage('Stage1: Git Checkout'){
                     when { expression {  params.action == 'create' } }
@@ -34,6 +34,7 @@ pipeline{
                  sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar http://34.123.193.20/:8082/artifactory/example-repo-local/'
                }
             }
+        }
 
         stage('Stage5: Docker Build'){
          when { expression {  params.action == 'create' } }
@@ -55,4 +56,4 @@ pipeline{
             // You can add further actions here, like notifications or rollback procedures
         }
     }
-}
+    }
