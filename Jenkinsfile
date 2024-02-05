@@ -42,7 +42,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar'+ JFrog_URL
+                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar '+ JFrog_URL
                }
             }
         }
