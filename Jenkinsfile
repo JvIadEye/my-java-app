@@ -11,7 +11,7 @@ pipeline{
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
     }
 
-    stages
+    stages {
          
         stage('Stage1: Git Checkout'){
                     when { expression {  params.action == 'create' } }
@@ -57,3 +57,4 @@ pipeline{
         }
     }
     }
+}
