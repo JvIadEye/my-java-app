@@ -33,11 +33,14 @@ pipeline{
         }
         stage('Stage2: Maven Build : maven'){
          when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                 sh 'mvn clean install -DskipTests'
+            // steps{
+            //    script{
+            //      sh 'mvn clean install -DskipTests'
+            //    }
+            // }
+               steps {
+                  mvnBuild()
                }
-            }
         }
         stage('Stage4: Store Build in JFrog Artifactory'){
          when { expression {  params.action == 'create' } }
