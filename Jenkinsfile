@@ -11,6 +11,7 @@ pipeline{
 //        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
 //        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
+          string(name: 'JFrog_URL', description: "name of the Application", defaultValue: 'http://34.123.193.20:8082/artifactory/example-repo-local')
     }
 
     stages {
@@ -33,11 +34,6 @@ pipeline{
         }
         stage('Stage2: Maven Build : maven'){
          when { expression {  params.action == 'create' } }
-            // steps{
-            //    script{
-            //      sh 'mvn clean install -DskipTests'
-            //    }
-            // }
                steps {
                   mvnBuild()
                }
@@ -46,7 +42,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar http://34.123.193.20:8082/artifactory/example-repo-local/'
+                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar'+ {params.JFrog_URL}
                }
             }
         }
