@@ -38,7 +38,8 @@ pipeline{
                   mvnBuild()
                }
         }
-        stage('Stage4: Store Build in JFrog Artifactory'){
+        
+        stage('Stage3: Store Build in JFrog Artifactory'){
          when { expression {  params.action == 'create' } }
             steps{
                script{
@@ -47,7 +48,12 @@ pipeline{
             }
          
         }
-
+        Stage('Stage 4: Docker Login'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               dockerLogin()
+            }
+        }
         stage('Stage5: Docker Build'){
          when { expression {  params.action == 'create' } }
             steps{
