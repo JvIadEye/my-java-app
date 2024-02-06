@@ -9,7 +9,7 @@ pipeline{
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
-//        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
+        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
           string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.122.247.102:8082/artifactory/example-repo-local/')
     }
@@ -66,7 +66,10 @@ pipeline{
         stage('Stage6: Docker Deploy') { 
             steps {
                 script {
-                    def containerName = "my-java-app"
+//                    def containerName = "my-java-app"
+                    def containerName = params.DockerHubUser+ "/" +params.ImageName
+                    echo "container name inside Docker Deploy Statge: $containerName"
+                    // Check if container is running
                     def isRunning = sh(script: "docker inspect -f '{{.State.Running}}' $containerName", returnStatus: true) == 0
                     if (isRunning){
                         // Container is running, stop and remove it
