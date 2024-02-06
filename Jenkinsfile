@@ -24,39 +24,43 @@ pipeline{
       //   }
 
         stage ('Stage1: Git Checkout') {
-            when { expression {  params.action == 'create' } }
+            when { expression {  params.action == 'create' } 
             steps {
                 gitCheckout (
                   branch: 'main',
                   repoUrl: params.Java_URL
                 )
             }
+            }
         }
         stage('Stage2: Maven Build : maven'){
-         when { expression {  params.action == 'create' } }
+         when { expression {  params.action == 'create' } 
                steps {
                   mvnBuild()
                }
+         }
         }
         stage('Stage4: Store Build in JFrog Artifactory'){
-         when { expression {  params.action == 'create' } }
+         when { expression {  params.action == 'create' } 
             steps{
                script{
                  sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar '+ JFrog_URL
                }
             }
+         }
         }
 
         stage('Stage5: Docker Build'){
-         when { expression {  params.action == 'create' } }
+         when { expression {  params.action == 'create' } 
             steps{
                script{
                  sh 'docker build -t srinivish/my-java-app:v1.0 . '
                }
             }
-
+         }
         }
         stage('Stage6: Docker Deploy') { 
+         when { expression {  params.action == 'create' } 
             steps {
                 script {
                     def containerName = "my-java-app"
@@ -71,6 +75,7 @@ pipeline{
                 echo "created new container: $containerName"
                 }
             }
+         }
         }
    }
 }
