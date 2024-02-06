@@ -11,7 +11,7 @@ pipeline{
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
 //        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
-          string(name: 'JFrog_URL', description: "name of the Application", defaultValue: 'http://34.122.247.102:8082/artifactory/example-repo-local')
+          string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.122.247.102:8082/artifactory/example-repo-local/')
     }
 
     stages {
