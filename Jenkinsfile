@@ -58,8 +58,8 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                  echo " Image : $params.dockerHubUser/$params.ImageName:$params.ImageTag"
-                  sh 'docker build -t $params.dockerHubUser/$params.ImageName:$params.ImageTag . '
+                  echo " Image : $params.DockerHubUser/$params.ImageName:$params.ImageTag"
+                  sh 'docker build -t $params.DockerHubUser/$params.ImageName:$params.ImageTag . '
                }
             }
          
@@ -77,8 +77,8 @@ pipeline{
                         sh "docker rm -f $containerName"
                     }
                 // Deploy container with new build
-                sh "docker run $params.ImageName -d $params.dockerHubUser/$params.ImageName:$params.ImageTag"
-                echo "created new container: $containerName with image: $params.dockerHubUser/$params.ImageName:$params.ImageTag"
+                sh "docker run $params.ImageName -d $params.DockerHubUser/$params.ImageName:$params.ImageTag"
+                echo "created new container: $containerName with image: $params.DockerHubUser/$params.ImageName:$params.ImageTag"
                 }
             }
 
