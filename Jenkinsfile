@@ -48,7 +48,7 @@ pipeline{
             }
          
         }
-        Stage('Stage 4: Docker Login'){
+        stage('Stage 4: Docker Login'){
          when { expression {  params.action == 'create' } }
             steps{
                dockerLogin()
