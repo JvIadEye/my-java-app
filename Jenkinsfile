@@ -6,9 +6,9 @@ pipeline{
 
     parameters{
 
-        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-//        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
-//        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
+//        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+//        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
+        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
 //        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
           string(name: 'JFrog_URL', description: "name of the Application", defaultValue: 'http://34.123.193.20:8082/artifactory/example-repo-local')
@@ -55,6 +55,22 @@ pipeline{
                }
             }
 
+        }
+        stage('Stage6: Docker Deploy') { 
+            steps {
+                script {
+                    def containerName = "my-java-app"
+                    def isRunning = sh(script: "docker inspect -f '{{.State.Running}}' $containerName", returnStatus: true) == 0
+                    if (isRunning){
+                        // Container is running, stop and remove it
+                        sh "docker stop $containerName"
+                        sh "docker rm -f $containerName"
+                    }
+                // Deploy container with new build
+                sh "docker run $containerName -d my-java-app:1.0"
+                echo "created new container: $containerName"
+                }
+            }
         }
    }
 }
