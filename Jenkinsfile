@@ -7,7 +7,7 @@ pipeline{
     parameters{
 
 //        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-//        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
+        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
 //        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
           string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
@@ -60,7 +60,6 @@ pipeline{
          }
         }
         stage('Stage6: Docker Deploy') { 
-         when { expression {  params.action == 'create' } 
             steps {
                 script {
                     def containerName = "my-java-app"
@@ -75,7 +74,7 @@ pipeline{
                 echo "created new container: $containerName"
                 }
             }
-         }
+
         }
    }
 }
