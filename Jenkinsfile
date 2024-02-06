@@ -58,7 +58,8 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                 sh 'docker build -t srinivish/my-java-app:v1.0 . '
+                  echo " Image : $params.dockerHubUser/$params.ImageName:$params.ImageTag"
+                  sh 'docker build -t $params.dockerHubUser/$params.ImageName:$params.ImageTag . '
                }
             }
          
@@ -66,8 +67,7 @@ pipeline{
         stage('Stage6: Docker Deploy') { 
             steps {
                 script {
-//                    def containerName = "my-java-app"
-                    def containerName = params.DockerHubUser+ "/" +params.ImageName
+                    def containerName = "my-java-app"
                     echo "container name inside Docker Deploy Statge: $containerName"
                     // Check if container is running
                     def isRunning = sh(script: "docker inspect -f '{{.State.Running}}' $containerName", returnStatus: true) == 0
@@ -77,8 +77,8 @@ pipeline{
                         sh "docker rm -f $containerName"
                     }
                 // Deploy container with new build
-                sh "docker run $containerName -d my-java-app:1.0"
-                echo "created new container: $containerName"
+                sh "docker run $params.ImageName -d $params.dockerHubUser/$params.ImageName:$params.ImageTag"
+                echo "created new container: $containerName with image: $params.dockerHubUser/$params.ImageName:$params.ImageTag"
                 }
             }
 
