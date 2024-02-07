@@ -12,7 +12,7 @@ pipeline{
         string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.122.235.197:8082/artifactory/example-repo-local/')
     }
     stages {
-        stage ('Stage1: Git Checkout') {
+        stage ('Stage1: Git') {
             when { expression {  params.action == 'create' } }
             steps {
                 dir("${myWorkspace}")
