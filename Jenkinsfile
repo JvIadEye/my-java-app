@@ -6,6 +6,8 @@ pipeline{
         string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
         string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.29.30.7:8082/artifactory/example-repo-local/')
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
+        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
+        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
 
     }
     stages {
@@ -34,7 +36,7 @@ pipeline{
         stage('Stage4: Docker Login & Build'){
          when { expression {  params.action == 'create' } }
                steps {
-                  dockerLoginBuild(params.ImageName)
+                  dockerLoginBuild(paramas.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
     }
