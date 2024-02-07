@@ -36,7 +36,7 @@ pipeline{
         stage('Stage4: Docker Login & Build'){
          when { expression {  params.action == 'create' } }
                steps {
-                  dockerLoginBuild(paramas.DockerHubUser, params.ImageName, params.ImageTag)
+                  dockerLoginBuild(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
     }
