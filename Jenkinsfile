@@ -10,19 +10,12 @@ pipeline{
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
         string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
-          string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
-          string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.122.247.102:8082/artifactory/example-repo-local/')
+        string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
+        string(name: 'JFrog_URL', description: "JFrog URL", defaultValue: 'http://34.122.247.102:8082/artifactory/example-repo-local/')
     }
 
     stages {
          
-      //   stage('Stage1: Git Checkout'){
-      //               when { expression {  params.action == 'create' } }
-      //       steps{
-      //            git branch: 'main', url: params.Java_URL
-      //       }
-      //   }
-
         stage ('Stage1: Git Checkout') {
             when { expression {  params.action == 'create' } }
             steps {
@@ -59,27 +52,29 @@ pipeline{
             steps{
                script{
                   echo " Image : $params.DockerHubUser/$params.ImageName:$params.ImageTag"
-                  sh 'docker build -t $params.DockerHubUser/$params.ImageName:$params.ImageTag . '
+                  sh 'docker build -t '+ $params.DockerHubUser + '/' + $params.ImageName + ':' + $params.ImageTag + ' .'
+                  sh 'docker push '+ $params.DockerHubUser + '/' + $params.ImageName + ':'+ $params.ImageTag + ' . '
                }
             }
          
         }
         stage('Stage6: Docker Deploy') { 
             steps {
-                script {
-                    def containerName = "my-java-app"
-                    echo "container name inside Docker Deploy Statge: $containerName"
-                    // Check if container is running
-                    def isRunning = sh(script: "docker inspect -f '{{.State.Running}}' $containerName", returnStatus: true) == 0
-                    if (isRunning){
-                        // Container is running, stop and remove it
-                        sh "docker stop $containerName"
-                        sh "docker rm -f $containerName"
-                    }
-                // Deploy container with new build
-                sh "docker run $params.ImageName -d $params.DockerHubUser/$params.ImageName:$params.ImageTag"
-                echo "created new container: $containerName with image: $params.DockerHubUser/$params.ImageName:$params.ImageTag"
-                }
+                dockerDeploy(ImageName, ImageTag, DockerHubUser)
+                //script {
+                //     def containerName = "my-java-app"
+                //     echo "container name inside Docker Deploy Statge: $containerName"
+                //     // Check if container is running
+                //     def isRunning = sh(script: "docker inspect -f '{{.State.Running}}' $containerName", returnStatus: true) == 0
+                //     if (isRunning){
+                //         // Container is running, stop and remove it
+                //         sh "docker stop $containerName"
+                //         sh "docker rm -f $containerName"
+                //     }
+                // // Deploy container with new build
+                // sh "docker run --name $params.ImageName -d $params.DockerHubUser/$params.ImageName:$params.ImageTag"
+                // echo "created new container: $containerName with image: $params.DockerHubUser/$params.ImageName:$params.ImageTag"
+                //}
             }
 
         }
