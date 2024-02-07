@@ -25,6 +25,15 @@ pipeline{
                 )
             }
         }
+        stage('Example') {
+            steps {
+                // Print the path of the current workspace
+                script {
+                    echo "Workspace directory: ${workspace}"
+                }
+            }
+        }
+        
         stage('Stage2: Maven Build : maven'){
          when { expression {  params.action == 'create' } }
                steps {
