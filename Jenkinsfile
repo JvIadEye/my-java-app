@@ -29,11 +29,11 @@ pipeline{
                   echo "CHECKING HOME: $env.HOME"
                }
         }
-        // stage('Stage3: Artifact Maven Build'){
-        //  when { expression {  params.action == 'create' } }
-        //        steps {
-        //           mvnArtifactory("target/my-java-app-1.0-SNAPSHOT.jar", JFrog_URL)
-        //        }
-        // }
+        stage('Stage3: Artifact Maven Build'){
+         when { expression {  params.action == 'create' } }
+               steps {
+                  mvnArtifactory("target/my-java-app-1.0-SNAPSHOT.jar", JFrog_URL)
+               }
+        }
     }
 }
