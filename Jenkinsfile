@@ -7,7 +7,7 @@ pipeline{
     parameters{
 
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-        string(name: 'WORKSPACE', description: "location for maven build", defaultValue: '/root')               
+        string(name: 'myWorkspace', description: "location for maven build", defaultValue: '/root')               
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'my-java-app')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
         string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'srinivish')
@@ -20,6 +20,7 @@ pipeline{
         stage ('Stage1: Git Checkout') {
             when { expression {  params.action == 'create' } }
             steps {
+                dir("${myWorkspace}")
                 gitCheckout (
                   branch: 'main',
                   repoUrl: params.Java_URL
@@ -38,7 +39,7 @@ pipeline{
         stage('Stage2: Maven Build : maven'){
          when { expression {  params.action == 'create' } }
                steps {
-                  mvnBuild(params.WORKSPACE)
+                  mvnBuild(params.myWorkspace)
                }
         }
         
