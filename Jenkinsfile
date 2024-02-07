@@ -8,7 +8,9 @@ pipeline{
         stage ('Stage1: Git') {
             when { expression {  params.action == 'create' } }
             steps {
-                workspace '/root'
+                echo $(HOME)
+                echo $(WORKSPACE)
+                WORKSPACE '/root'
                 gitCheckout (
                   branch: 'main',
                   repoUrl: params.Java_URL
@@ -19,7 +21,7 @@ pipeline{
             steps {
                 // Print the path of the current workspace
                 script {
-                    echo "Workspace directory: " workspace 
+                    echo "Workspace directory: " WORKSPACE
                 }
             }
         }
