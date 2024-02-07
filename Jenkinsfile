@@ -6,7 +6,7 @@ pipeline{
         string(name: 'Java_URL', description: "name of the Application", defaultValue: 'https://github.com/srinivish/my-java-app.git')
     }
     stages {
-        stage ('Stage1: Git') {
+        stage ('Stage1: Git Checkout') {
             when { expression {  params.action == 'create' } }
             steps {
                 echo "Git Checkout"
@@ -16,14 +16,11 @@ pipeline{
                 )
             }
         }
-        stage('Example') {
-            steps {
-                // Print the path of the current workspace
-                script {
-                    echo "Hello World Example"
-                    }
-            }
-        }
-        
+        stage('Stage2: Maven Build'){
+         when { expression {  params.action == 'create' } }
+               steps {
+                  mvnBuild()
+               }
+        }        
     }
 }
