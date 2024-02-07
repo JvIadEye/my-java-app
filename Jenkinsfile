@@ -32,13 +32,13 @@ pipeline{
                }
         }
         
-        stage('Stage3: Store Build in JFrog Artifactory'){
-         when { expression {  params.action == 'create' } }
-            steps{
-               script{
-                 sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar '+ JFrog_URL
-               }
-            }
+        // stage('Stage3: Store Build in JFrog Artifactory'){
+        //  when { expression {  params.action == 'create' } }
+        //     steps{
+        //        script{
+        //          sh 'curl -X PUT -u admin -p Password123456789! -T  target/my-java-app-1.0-SNAPSHOT.jar '+ JFrog_URL
+        //        }
+        //     }
          
         }
         stage('Stage 4: Docker Login'){
