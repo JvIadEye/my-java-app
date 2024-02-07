@@ -25,7 +25,7 @@ pipeline{
                   mvnBuild()
                }
         }
-        stage('Stage3: Artifact Maven Build'){
+        stage('Stage3: JAR to JFrog'){
          when { expression {  params.action == 'create' } }
                steps {
                   mvnArtifactory("target/my-java-app-1.0-SNAPSHOT.jar", JFrog_URL)
@@ -36,5 +36,6 @@ pipeline{
                steps {
                   dockerLoginBuild(params.ImageName)
                   }
+        }   
     }
 }
