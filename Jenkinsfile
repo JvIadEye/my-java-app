@@ -43,7 +43,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
                steps {
 // to be continued.....                
-//                  dockerDeployPush(params.DockerHubUser, params.ImageName, params.ImageTag)
+                  dockerDeployPush(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
 
