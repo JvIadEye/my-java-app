@@ -39,5 +39,13 @@ pipeline{
                   dockerLoginBuild(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
+        stage('Stage5: Docker Deploy & Push'){
+         when { expression {  params.action == 'create' } }
+               steps {
+// to be continued.....                
+//                  dockerDeployPush(params.DockerHubUser, params.ImageName, params.ImageTag)
+                  }
+        }   
+
     }
 }
