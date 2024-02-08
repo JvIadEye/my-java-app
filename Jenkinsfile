@@ -39,6 +39,17 @@ pipeline{
                   dockerLoginBuild(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
+
+        stage('Stage 5: Docker Image Scan: trivy '){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   dockerImageScan(params.DockerHubUser, params.ImageName, params.ImageTag)
+//                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+               }
+            }
+        }
+
         stage('Stage5: Docker Deploy & Push'){
          when { expression {  params.action == 'create' } }
                steps {
