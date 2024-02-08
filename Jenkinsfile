@@ -45,15 +45,13 @@ pipeline{
             steps{
                script{
                    dockerImageScan(params.DockerHubUser, params.ImageName, params.ImageTag)
-//                   dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
                }
             }
         }
 
-        stage('Stage5: Docker Deploy & Push'){
+        stage('Stage6: Docker Deploy & Push'){
          when { expression {  params.action == 'create' } }
                steps {
-// to be continued.....                
                   dockerDeployPush(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
         }   
