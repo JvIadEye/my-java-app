@@ -14,7 +14,7 @@ pipeline{
         ACTIVE_API_URL = 'https://noname.nsvnlab.io.vn/active'
         ACTIVE_BACKEND_URI = 'https://noname.nsvnlab.io.vn/active/backend'
         ACTIVE_TEST_GROUP_ID = '892b51de-67cf-4328-beea-3ade61bcdeb2'
-        SEVERITY_THRESHOLD = 'none'
+        SEVERITY_THRESHOLD = 'high'
         ACTIVE_CONFIG_FILE_PATH = '/noname/active-config-newcollection.json'
     }
     stages {
