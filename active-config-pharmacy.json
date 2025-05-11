@@ -6,7 +6,7 @@
     {
       "name": "Active Pharmacy Lab - REST",
       "openApi": {
-        "sourcePath": "/noname/activePharmaLabOAS.json"
+        "sourceUrl": "https://noname.nsvnlab.io.vn/active/specs/activePharmaLabOAS.json"
       },
       "auth_mappings": []
     }
