@@ -1,0 +1,155 @@
+{
+  "version": "1.1.0",
+  "applicationId": "2b779863-779e-4ee2-9a3a-812853745937",
+  "host": "http://localhost:3003/pharmacy/api/v2",
+  "sources": [
+    {
+      "name": "Active Pharmacy Lab - REST",
+      "openApi": {
+        "sourceUrl": "http://localhost/active/specs/activePharmaLabOAS.json"
+      },
+      "auth_mappings": []
+    }
+  ],
+  "auths": [
+    {
+      "name": "Pharmacist",
+      "role": "pharmacist",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{pharmacist}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy Admin",
+      "role": "admin",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{pharmacy admin}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy Admin BasicAuth",
+      "role": "admin",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Basic {{admin basic auth}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User 1",
+      "role": "reader / writer",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{user1_token}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User 2",
+      "role": "reader / writer",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{user2_token}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User 3 expired",
+      "role": "reader / writer",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{user3_token}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User 4 expired and not-BP-Format",
+      "role": "reader / writer",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{user4 token}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User 5 noIAT&EXP",
+      "role": "reader / writer",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{user5 token}}",
+          "key": "Authorization"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacy User Reader",
+      "role": "reader",
+      "mappings": [
+        {
+          "type": "header",
+          "value": "Bearer {{reader token}}",
+          "key": "Authorization"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "secrets": [
+      {
+        "name": "user1_token",
+        "type": "text"
+      },
+      {
+        "name": "user2_token",
+        "type": "text"
+      },
+      {
+        "name": "user3_token",
+        "type": "text"
+      },
+      {
+        "name": "pharmacist",
+        "type": "text"
+      },
+      {
+        "name": "pharmacy admin",
+        "type": "text"
+      },
+      {
+        "name": "admin basic auth",
+        "type": "text"
+      },
+      {
+        "name": "reader token",
+        "type": "text"
+      },
+      {
+        "name": "user4 token",
+        "type": "text"
+      },
+      {
+        "name": "user5 token",
+        "type": "text"
+      }
+    ]
+  }
+}
