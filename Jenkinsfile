@@ -10,6 +10,13 @@ pipeline{
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: '1.0')
 
     }
+    environment {
+        ACTIVE_API_URL = 'https://noname.nsvnlab.io.vn/active'
+        ACTIVE_BACKEND_URI = 'https://noname.nsvnlab.io.vn/active/backend'
+        ACTIVE_TEST_GROUP_ID = '892b51de-67cf-4328-beea-3ade61bcdeb2'
+        SEVERITY_THRESHOLD = 'none'
+        ACTIVE_CONFIG_FILE_PATH = '/active-config-newcollection.json'
+    }
     stages {
         stage ('Stage1: Git Checkout') {
             when { expression {  params.action == 'create' } }
@@ -74,18 +81,8 @@ pipeline{
                steps {
                   dockerDeployPush(params.DockerHubUser, params.ImageName, params.ImageTag)
                   }
-        } 
-        environment {
-    ACTIVE_API_URL = 'https://noname.nsvnlab.io.vn/active'
-    ACTIVE_BACKEND_URI = 'https://noname.nsvnlab.io.vn/active/backend'
-    ACTIVE_TEST_GROUP_ID = '892b51de-67cf-4328-beea-3ade61bcdeb2'
-    SEVERITY_THRESHOLD = 'none'
-    ACTIVE_CONFIG_FILE_PATH = '/noname/active-config-newcollection.json'
-  }
-  stages {
-    // other stages here...
-
-    stage('Active Scan') {
+        }
+        stage('Active Scan') {
       steps {
         script {
           //checkout scm
@@ -115,7 +112,5 @@ pipeline{
         }
       }
     }
-  }
-
     }
 }
