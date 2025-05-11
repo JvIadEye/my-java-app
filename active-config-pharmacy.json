@@ -6,7 +6,7 @@
     {
       "name": "Active Pharmacy Lab - REST",
       "openApi": {
-        "sourceUrl": "http://localhost/active/specs/activePharmaLabOAS.json"
+        "sourcePath": "/noname/activePharmaLabOAS.json"
       },
       "auth_mappings": []
     }
