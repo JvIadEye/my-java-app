@@ -15,7 +15,7 @@ pipeline{
         ACTIVE_BACKEND_URI = 'https://noname.nsvnlab.io.vn/active/backend'
         ACTIVE_TEST_GROUP_ID = '892b51de-67cf-4328-beea-3ade61bcdeb2'
         SEVERITY_THRESHOLD = 'none'
-        ACTIVE_CONFIG_FILE_PATH = '/active-config-newcollection.json'
+        ACTIVE_CONFIG_FILE_PATH = '/noname/active-config-newcollection.json'
     }
     stages {
 //        stage ('Stage1: Git Checkout') {
@@ -103,7 +103,7 @@ pipeline{
             sh 'echo "$ACTIVE_API_TOKEN" | cut -d\".\" -f3'
           //def backendVersion = sh(script: "curl -k ${ACTIVE_API_URL}/backend/version", returnStdout: true).trim()
           //docker run -e ACTIVE_CONFIG_FILE_PATH='/noname/active-config.json' -v $(pwd)/noname:/noname -e ACTIVE_BACKEND_URI=https://noname.nsb.io.vn/active/backend jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:2.32.0 scan --api-url=https://noname.nsvnlab.io.vniOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFjdGl2ZS5jb20iLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaaW5nIjp0cnVlLCJ0ZWFtIjp7ImlkIjoiYWxsIiwibmFtZSI6ImFsbCJ9fSwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVJ4LWhhc3VyYS1kZWZhdWx0LXJvbGUiOiJhZG1pbiIsIngtaGFzdXJhLXVzZXItaWQiOiJhZG1pbiIsIngtaGFzdXJhLXRlYW0taWQiOiJhbGwifSwiaWF0IjoxNzQ2NjMwOb9HZdl0Xv41Z3Ugw3G64Mc --branch-name=main --severity-threshold=medium    
-            sh 'docker run -e ACTIVE_CONFIG_FILE_PATH=${ACTIVE_CONFIG_FILE_PATH} -e ACTIVE_BACKEND_URI=${ACTIVE_BACKEND_URI} -v \$(pwd)/noname:/noname jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:2.32.0 scan --api-url=${ACTIVE_API_URL} --test-group-id=${ACTIVE_TEST_GROUP_ID} --api-token=\$ACTIVE_API_TOKEN --branch-name=main --severity-threshold=${SEVERITY_THRESHOLD}'
+            sh 'docker run -e ACTIVE_CONFIG_FILE_PATH=${ACTIVE_CONFIG_FILE_PATH} -e ACTIVE_BACKEND_URI=${ACTIVE_BACKEND_URI} -v \$(pwd):/noname jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:2.32.0 scan --api-url=${ACTIVE_API_URL} --test-group-id=${ACTIVE_TEST_GROUP_ID} --api-token=\$ACTIVE_API_TOKEN --branch-name=main --severity-threshold=${SEVERITY_THRESHOLD}'
           //  sh 'docker run -e ACTIVE_CONFIG_FILE_PATH=${ACTIVE_CONFIG_FILE_PATH} -e ACTIVE_BACKEND_URI=${ACTIVE_BACKEND_URI} -v \$(pwd)/noname:/noname jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:2.32.0 scan --api-url=${ACTIVE_API_URL} --test-group-id=${ACTIVE_TEST_GROUP_ID} --api-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFjdGl2ZS5jb20iLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJlbmFibGVBY3RpdmVUZXN0aW5nIjp0cnVlLCJ0ZWFtIjp7ImlkIjoiYWxsIiwibmFtZSI6ImFsbCJ9fSwiaHR0cHM6Ly9oYXN1cmEuaW8vand0L2NsYWltcyI6eyJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbImFkbWluIiwidXNlciJdLCJ4LWhhc3VyYS1kZWZhdWx0LXJvbGUiOiJhZG1pbiIsIngtaGFzdXJhLXVzZXItaWQiOiJhZG1pbiIsIngtaGFzdXJhLXRlYW0taWQiOiJhbGwifSwiaWF0IjoxNzQ2NjMwODg4fQ.tIQzwK2XlHx0bgf5z7Zwrb9HZdl0Xv41Z3Ugw3G64Mc --branch-name=null --severity-threshold=${SEVERITY_THRESHOLD}'          
     
           //  sh "docker run --add-host='host.docker.internal:host-gateway' -e ACTIVE_CONFIG_FILE_PATH='/opt/test/Active Pharmacy Lab - REST.json' -e ACTIVE_BACKEND_URI='https://noname.nsvnlab.io.vn/active/backend/' -v \$(pwd)/noname:/noname jfrog.cicd.nonamesec.com/noname-docker-release/active-cli:2.32.0 scan --api-url=${ACTIVE_API_URL} --test-group-id=${ACTIVE_TEST_GROUP_ID} --api-token=\$ACTIVE_API_TOKEN --branch-name=${env.GIT_BRANCH.split('/')[-1]} --severity-threshold=${SEVERITY_THRESHOLD}"
